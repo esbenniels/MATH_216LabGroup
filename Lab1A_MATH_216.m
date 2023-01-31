@@ -9,21 +9,21 @@ k2 = 4;
 % gompertz equation plotted with r=1 and k=3
 f = @(t,y) r1*y.*log(k1./y);
 [tsol, ysol] = ode45(f, [0,5], 1);
-plot(tsol, ysol)
+plot(tsol, ysol, "Linewidth", 2)
 
 hold on;
 % gompertz equation plotted with r=2 and k=3
 f = @(t,y) r2*y.*log(k1./y);
 [tsol, ysol] = ode45(f, [0,5], 1);
-plot(tsol, ysol)
+plot(tsol, ysol, "Linewidth", 2)
 % gompertz equation plotted with r=1 and k=4
 f = @(t,y) r1*y.*log(k2./y);
 [tsol, ysol] = ode45(f, [0,5], 1);
-plot(tsol, ysol)
+plot(tsol, ysol, "Linewidth", 2)
 % gompertz equation plotted with r=2 and k=4
 f = @(t,y) r2*y.*log(k2./y);
 [tsol, ysol] = ode45(f, [0,5], 1);
-plot(tsol, ysol);
+plot(tsol, ysol, "Linewidth", 2);
 
 % Legend
 legend('r=1, k=3', 'r=2, k=3', 'r=1, k=4', 'r=2, k=4');
@@ -52,28 +52,29 @@ hold on
 f = @(t,y) r*y.*log(K ./ y);
 % ode45 plots of the solution to the Gompertz equation with various
 % initial conditions
-[tsol, ysol] = ode45(f, [0,20], .1);
-plot(tsol, ysol)
+[tsol, ysol] = ode45(f, [0,30], .1);
+plot(tsol, ysol, "Linewidth", 2)
 
-[tsol, ysol] = ode45(f, [0,20], 1);
-plot(tsol, ysol)
+[tsol, ysol] = ode45(f, [0,30], 1);
+plot(tsol, ysol, "Linewidth", 2)
 
-[tsol, ysol] = ode45(f, [0,20], 8);
-plot(tsol, ysol)
+[tsol, ysol] = ode45(f, [0,30], 8);
+plot(tsol, ysol, "Linewidth", 2)
 
-[tsol, ysol] = ode45(f, [0,20], 10);
-plot(tsol, ysol)
+[tsol, ysol] = ode45(f, [0,30], 10);
+plot(tsol, ysol, "Linewidth", 2)
 
-[tsol, ysol] = ode45(f, [0,20], 20);
-plot(tsol, ysol)
+[tsol, ysol] = ode45(f, [0,30], 20);
+plot(tsol, ysol, "Linewidth", 2)
 
 % Graphing the right hand side of the Gompertz equation 
 rhs = @(y)r*y .* log(K./y);
-yvals = 0:0.1:20;
-plot(yvals, rhs(yvals), '-k', [0,20], [0 0], '--k');
+yvals = 0:0.1:30;
+plot(yvals, rhs(yvals), '-k', [0,30], [0 0], '--k', "Linewidth", 2);
 
 title("Gompertz ode45 Solution with Various Initial Conditions");
 xlabel("Time (t)"); ylabel("Tumor Volume");
+axis([0 30 0 20]);
 legend(["y0 = 0.1" "y0 = 1" "y0 = 8" "y0 = 10" "y0 = 20" "Gompertz RHS"]);
 
 hold off;
@@ -94,20 +95,26 @@ hold on;
 % Gompertz equation truncated at n = 1
 f = @(t,y) -r*(y-K);
 [tsol, ysol] = ode45(f, [0,50], .1);
-plot(tsol, ysol)
+plot(tsol, ysol, "Linewidth", 2)
+i=0.1;
+k=20;
+f = @(t,y) r*i*log(k/i) + r*(log(k/i)-1).*(y-i);
+[tsol, ysol] = ode45(f, [0,50], .1);
+plot(tsol, ysol, "Linewidth", 2)
 % Graphing ode45 solution to the Taylor Series approximation of the 
 % Gompertz equation truncated at n = 2
-f = @(t,y) -r/(2*K)*(y-K).^2 -r*(y-K);
-[tsol, ysol] = ode45(f, [0,50], .1);
-plot(tsol, ysol)
+%f = @(t,y) -r/(2*K)*(y-K).^2 -r*(y-K);
+%[tsol, ysol] = ode45(f, [0,50], .1);
+%plot(tsol, ysol)
 % Graphing ode45 solution to the Gompertz equation for comparison
 f = @(t,y) r*y.*log(K./y);
 [tsol, ysol] = ode45(f, [0,50], .1);
-plot(tsol, ysol)
+plot(tsol, ysol, "Linewidth", 2)
 
-title("Linear and Quadratic ode45 Solutions vs Gompertz ode45 Solution");
+axis([0 40 0 20]);
+title("Linear Approximation ode45 Solution vs Gompertz ode45 Solution");
 xlabel("Time (t)"); ylabel("Tumor Volume");
-legend(["Linear ode45" "Quadratic ode45" "Gompertz ode45"]);
+legend(["Linear ode45 a=k" "Linear ode45 a=0.1" "Gompertz ode45"]);
 
 % Solutions are most similar close to the line y = K. The solutions are all
 % the same at t=0, but with differing rates of growth. At t = 0, the 
@@ -119,12 +126,12 @@ figure(4)
 r = 0.1;
 K = 20;
 y = 0:.01:20;
-plot(y, -r * (y-K));
+plot(y, -r * (y-K), "Linewidth", 2);
 hold on;
 % Graphing right hand side of Gompertz Taylor series approximation with n=2
-plot(y, (-r*(y-K)) - (r/2*K)*(y-K).^2);
+plot(y, (-r*(y-K)) - (r/2*K)*(y-K).^2, "Linewidth", 2);
 % Graphing right hand side of Gompertz equation for comparison
-plot(y, r.*y.*log(K./y));
+plot(y, r.*y.*log(K./y), "Linewidth", 2);
 axis([0 20 -7 7]);
 title("Linear and Quadratic RHS vs Gompertz RHS");
 xlabel("Time (t)"); ylabel("Tumor Volume");

@@ -73,7 +73,7 @@ legend(["Gompertz Exact" "Linear Taylor Exact" "Quadratic Taylor ode45"]);
 figure(3);
 r = 0.1;
 k = 20;
-i = 0.1;
+i = 10;
 hold off;
 
 % Derivation of Linear Taylor series approximation around y = 0.1
@@ -97,20 +97,20 @@ f2 = @(t,y) r*i*log(k/i) + r*(log(k/i)-1).*(y-i) - (r/i)*(1/2).*(y-i).^2;
 f3 = @(t,y) r*i*log(k/i) + r*(log(k/i)-1).*(y-i) - (r/i)*(1/2).*(y-i).^2 + (r/i^2)/6.*(y-i).^3;
 
 % Plot of T(n=1)
-[tsol1, ysol1] = ode45(f1, [0,40], i);
+[tsol1, ysol1] = ode45(f1, [0,40], 0.1);
 plot(tsol1, ysol1);
 hold on;
 axis([0 40 0 20]);
 % Plot of T(n=2)
-[tsol2, ysol2] = ode45(f2, [0,40], i);
+[tsol2, ysol2] = ode45(f2, [0,40], 0.1);
 plot(tsol2, ysol2);
 % Plot of T(n=3)
-[tsol3, ysol3] = ode45(f3, [0,40], i);
+[tsol3, ysol3] = ode45(f3, [0,40], 0.1);
 plot(tsol3, ysol3);
 
 % Gompertz Plot
 f4 = @(t,y) r * y * log(k/y);
-[tsol4,ysol4] = ode45(f4, [0,40], i);
+[tsol4,ysol4] = ode45(f4, [0,40], 0.1);
 plot(tsol4,ysol4);
 
 legend(["T(n=1)" "T(n=2)" "T(n=3)" "Gompertz"]);
