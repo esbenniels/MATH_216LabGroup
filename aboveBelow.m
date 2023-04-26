@@ -17,6 +17,6 @@ plot(tsol3, ysol3, "Linewidth", 2);
 [tsol4,ysol4] = ode45(f2, [0,40], i2);
 plot(tsol4, ysol4, "Linewidth", 2);
 
-legend(["Linear y(0) = 0.1" "Linear y(0) = 35" "Gompertz y(0) = 0.1" "Gompertz y(0) = 35"]);
+legend(["Linear y'=-r(y-K) y(0) = 0.1" "Linear y'=-r(y-K) y(0) = 35" "Gompertz y(0) = 0.1" "Gompertz y(0) = 35"]);
 axis([0 40 0 40]);
 xlabel("Time (t)"); ylabel("Tumor Volume"); title("Linear and Gompertz ode45 Solutions with Varying Initial Conditions");

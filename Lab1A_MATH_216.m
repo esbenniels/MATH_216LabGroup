@@ -26,8 +26,8 @@ f = @(t,y) r2*y.*log(k2./y);
 plot(tsol, ysol, "Linewidth", 2);
 
 % Legend
-legend('r=1, k=3', 'r=2, k=3', 'r=1, k=4', 'r=2, k=4');
-title("Gompertz ode45 Solutions with Various r and k Values");
+legend('r=1, K=3', 'r=2, K=3', 'r=1, K=4', 'r=2, K=4');
+title("Gompertz ode45 Solutions with Various r and K Values");
 xlabel("Time (t)"); ylabel("Tumor Volume");
 hold off
 % Equilibrium Solutions:
@@ -111,10 +111,18 @@ f = @(t,y) r*y.*log(K./y);
 [tsol, ysol] = ode45(f, [0,50], .1);
 plot(tsol, ysol, "Linewidth", 2)
 
+f = @(t,y) r*i*log(k/i) + r*(log(k/i)-1).*(y-i) + (r/(2*i)).*(y-i).^2;
+[tsol, ysol] = ode45(f, [0,50], 0.1);
+plot(tsol, ysol, "Linewidth", 2);
+
+f = @(t,y) r*i*log(k/i) + r*(log(k/i)-1).*(y-i) + (r/(2*i)).*(y-i).^2 + (r/(6*i^2)).*(y-i).^3;
+[tsol, ysol] = ode45(f, [0,50], 0.1);
+plot(tsol, ysol, "Linewidth", 2);
+
 axis([0 40 0 20]);
 title("Linear Approximation ode45 Solution vs Gompertz ode45 Solution");
 xlabel("Time (t)"); ylabel("Tumor Volume");
-legend(["Linear ode45 a=k" "Linear ode45 a=0.1" "Gompertz ode45"]);
+legend(["Linear ode45 a=k" "Linear ode45 a=0.1" "Gompertz ode45" "Quadratic ode45 a=0.1" "Cubic ode45 a=0.1"]);
 
 % Solutions are most similar close to the line y = K. The solutions are all
 % the same at t=0, but with differing rates of growth. At t = 0, the 
